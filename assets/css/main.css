@@ -243,6 +243,7 @@ button,
 input:where([type='button']),
 input:where([type='reset']),
 input:where([type='submit']) {
+  appearance: button;
   -webkit-appearance: button;
   /* 1 */
   background-color: transparent;
@@ -290,6 +291,7 @@ Correct the cursor style of increment and decrement buttons in Safari.
 */
 
 [type='search'] {
+  appearance: button;
   -webkit-appearance: textfield;
   /* 1 */
   outline-offset: -2px;
@@ -430,7 +432,7 @@ embed,
 object {
   display: block;
   /* 1 */
-  vertical-align: middle;
+  
   /* 2 */
 }
 
@@ -764,11 +766,14 @@ p + p{
 
 .container{
   width: 100%;
+  max-width: 100%sss; /* o 100% si prefieres algo fluido */
   margin-right: auto;
   margin-left: auto;
-  padding-right: 1.25rem;
-  padding-left: 1.25rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+
 }
+
 
 @media (min-width: 640px){
   .container{
@@ -847,7 +852,7 @@ p + p{
   width: 1rem;
   border-radius: 9999px;
   --tw-bg-opacity: 1;
-  background-color: rgb(61 99 221 / var(--tw-bg-opacity));
+  background-color: rgb(255 110 0 / var(--tw-bg-opacity));
   animation: grid-loader 1.2s linear infinite;
 }
 
@@ -979,7 +984,7 @@ p + p{
 
   .ic-navbar.sticky .ic-page-scroll:hover{
     --tw-text-opacity: 1;
-    color: rgb(61 99 221 / var(--tw-text-opacity));
+    color: rgb(255 110 0/ var(--tw-text-opacity));
     opacity: 1;
   }
 
@@ -991,7 +996,7 @@ p + p{
 
 .ic-page-scroll.active{
   --tw-text-opacity: 1;
-  color: rgb(61 99 221 / var(--tw-text-opacity));
+  color: rgb(255 110 0/ var(--tw-text-opacity));
 }
 
 @media (min-width: 1024px){
@@ -1003,7 +1008,7 @@ p + p{
 
   .ic-navbar.sticky .ic-page-scroll.active{
     --tw-text-opacity: 1;
-    color: rgb(61 99 221 / var(--tw-text-opacity));
+    color: rgb(255 110 0 / var(--tw-text-opacity));
     opacity: 1;
   }
 }
@@ -1020,7 +1025,7 @@ p + p{
 
 .ic-navbar.sticky .btn-navbar{
   --tw-bg-opacity: 1;
-  background-color: rgb(61 99 221 / var(--tw-bg-opacity));
+  background-color: rgb(255 110 0 / var(--tw-bg-opacity));
 }
 
 .ic-navbar.sticky .btn-navbar:hover{
@@ -1060,6 +1065,8 @@ p + p{
   color: rgb(98 99 108 / var(--tw-text-opacity));
 }
 
+
+
 .section-area:where([data-web-theme=dark], [data-web-theme=dark] *){
   --tw-text-opacity: 1;
   color: rgb(180 182 191 / var(--tw-text-opacity));
@@ -1075,7 +1082,7 @@ p + p{
 
 .tabs-nav .tabs-link.active{
   --tw-bg-opacity: 1;
-  background-color: rgb(61 99 221 / var(--tw-bg-opacity));
+  background-color: rgb(255 110 0/ var(--tw-bg-opacity));
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
@@ -1090,7 +1097,7 @@ p + p{
 
 .portfolio-menu button.active{
   --tw-bg-opacity: 1;
-  background-color: rgb(61 99 221 / var(--tw-bg-opacity));
+  background-color: rgb(255 110 0/ var(--tw-bg-opacity));
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
@@ -1143,7 +1150,7 @@ p + p{
 .common-carousel .swiper-button-prev:hover,
   .common-carousel .swiper-button-next:hover{
   --tw-bg-opacity: 1;
-  background-color: rgb(61 99 221 / var(--tw-bg-opacity));
+  background-color: rgb(255 110 0/ var(--tw-bg-opacity));
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
@@ -1151,7 +1158,7 @@ p + p{
 .common-carousel .swiper-button-prev:focus,
   .common-carousel .swiper-button-next:focus{
   --tw-bg-opacity: 1;
-  background-color: rgb(61 99 221 / var(--tw-bg-opacity));
+  background-color: rgb(255 110 0 / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
@@ -1737,7 +1744,7 @@ p + p{
 
 .\!bg-primary{
   --tw-bg-opacity: 1 !important;
-  background-color: rgb(61 99 221 / var(--tw-bg-opacity)) !important;
+  background-color: rgb(255 110 0 / var(--tw-bg-opacity)) !important;
 }
 
 .bg-blue-500{
@@ -1765,30 +1772,30 @@ p + p{
 
 .bg-primary{
   --tw-bg-opacity: 1;
-  background-color: rgb(61 99 221 / var(--tw-bg-opacity));
+  background-color: rgb(247 149 90/ var(--tw-bg-opacity));
 }
 
 .bg-primary-color{
   --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+  background-color: rgb(255 110 0 / var(--tw-bg-opacity));
 }
 
 .bg-primary-color\/\[0\.15\]{
-  background-color: rgb(255 255 255 / 0.15);
+  background-color: rgb(255 110 0 / 0.15);
 }
 
 .bg-primary-dark-2{
   --tw-bg-opacity: 1;
-  background-color: rgb(30 37 52 / var(--tw-bg-opacity));
+  background-color: rgb(230 185 137 / var(--tw-bg-opacity));
 }
 
 .bg-primary-light-1{
   --tw-bg-opacity: 1;
-  background-color: rgb(253 253 254 / var(--tw-bg-opacity));
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
 .bg-primary\/10{
-  background-color: rgb(61 99 221 / 0.1);
+  background-color: rgb(255 110 0 / 0.1);
 }
 
 .bg-red-500{
@@ -2076,7 +2083,7 @@ p + p{
 
 .text-primary{
   --tw-text-opacity: 1;
-  color: rgb(61 99 221 / var(--tw-text-opacity));
+  color: rgb(255 110 0 / var(--tw-text-opacity));
 }
 
 .text-primary-color{
@@ -2092,7 +2099,9 @@ p + p{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
-
+.text-justify {
+  text-align: justify;
+}
 .opacity-0{
   opacity: 0;
 }
@@ -2131,7 +2140,7 @@ p + p{
 
 .ring-primary{
   --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(61 99 221 / var(--tw-ring-opacity));
+  --tw-ring-color: rgb(255 110 0 / var(--tw-ring-opacity));
 }
 
 .grayscale{
@@ -2181,7 +2190,7 @@ p + p{
 
 .hover\:bg-primary:hover{
   --tw-bg-opacity: 1;
-  background-color: rgb(61 99 221 / var(--tw-bg-opacity));
+  background-color: rgb(255 110 0 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-primary-color:hover{
@@ -2210,7 +2219,7 @@ p + p{
 
 .hover\:text-primary:hover{
   --tw-text-opacity: 1;
-  color: rgb(61 99 221 / var(--tw-text-opacity));
+  color: rgb(255 110 0/ var(--tw-text-opacity));
 }
 
 .hover\:text-primary-color:hover{
@@ -2247,7 +2256,7 @@ p + p{
 
 .focus\:border-primary:focus{
   --tw-border-opacity: 1;
-  border-color: rgb(61 99 221 / var(--tw-border-opacity));
+  border-color: rgb(255 110 0 / var(--tw-border-opacity));
 }
 
 .focus\:bg-green-500:focus{
@@ -2257,7 +2266,7 @@ p + p{
 
 .focus\:bg-primary:focus{
   --tw-bg-opacity: 1;
-  background-color: rgb(61 99 221 / var(--tw-bg-opacity));
+  background-color: rgb(255 110 0/ var(--tw-bg-opacity));
 }
 
 .focus\:bg-primary-color:focus{
@@ -2272,7 +2281,7 @@ p + p{
 
 .focus\:text-primary:focus{
   --tw-text-opacity: 1;
-  color: rgb(61 99 221 / var(--tw-text-opacity));
+  color: rgb(255 110 0 / var(--tw-text-opacity));
 }
 
 .focus\:text-primary-color:focus{
@@ -2320,7 +2329,7 @@ p + p{
 
 .group:hover .group-hover\:text-primary{
   --tw-text-opacity: 1;
-  color: rgb(61 99 221 / var(--tw-text-opacity));
+  color: rgb(255 110 0/ var(--tw-text-opacity));
 }
 
 .group:hover .group-hover\:opacity-100{
@@ -2651,4 +2660,120 @@ p + p{
     --tw-text-opacity: 1;
     color: rgb(255 255 255 / var(--tw-text-opacity));
   }
+}
+
+.whatsapp-float {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background-color: #25d366;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+}
+
+.whatsapp-float img {
+  width: 40px;
+  height: 40px;
+}
+
+@keyframes slideInBounce {
+  0% {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.whatsapp-float {
+  animation: slideInBounce 0.8s ease-out 1;
+}
+
+.whatsapp-float {
+  animation: slideInBounce 0.8s ease-out 1;
+  animation-delay: 1s;
+  animation-fill-mode: both;
+}
+
+
+
+.logo-zerebralab {
+
+  max-width: 200px;
+  width: auto;
+  margin-bottom: 1rem;
+}
+
+
+.flip-card {
+  background-color: transparent;
+  width: 400px;
+  height: 300px;
+  perspective: 1000px;
+  justify-content: centers;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s ease;
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.flip-card-front {
+  background-color: #ff9100; /* dark */
+  color: white;
+}
+
+.flip-card-front img.icon {
+  width: 70px;
+  height: 70px;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+}
+
+.flip-card-back {
+  background-color: #f97316; /* orange-500 */
+  color: white;
+  transform: rotateY(180deg);
 }
