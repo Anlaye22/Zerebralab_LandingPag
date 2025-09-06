@@ -1,7 +1,23 @@
+import "../css/main.css";
+
 "use strict";
 
 // Page loading
 const pageLoading = document.querySelector(".page-loading");
+// Helpers
+const norm = (s) =>
+  (s || '')
+    .toString()
+    .toLowerCase()
+    .normalize('NFD')               // separa acentos
+    .replace(/\p{Diacritic}/gu, ''); // quita acentos
+
+// Botones (usa data-filter en los <button>)
+const buttons = document.querySelectorAll('.portfolio-menu [data-filter]');
+
+// Los nodos con data-filter están en el <article>, pero el que se oculta
+// es el DIV padre con clase "portfolio col-12 ..."
+const nodesWithFilter = document.querySelectorAll('.portfolio-grid .portfolio [data-filter]');
 
 if (pageLoading) {
   window.addEventListener("load", () => {
@@ -149,31 +165,41 @@ document.querySelectorAll(".tabs").forEach(tab => {
 });
 
 // Portfolio filter
-document.querySelectorAll(".portfolio-menu button").forEach(filter => {
-  filter.addEventListener("click", function () {
-    document.querySelector(".portfolio-menu button.active")?.classList.remove("active");
-    this.classList.add("active");
+buttons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    // normaliza valor del botón
+    const f = norm(btn.dataset.filter); // e.g. 'all', 'negocios', 'comunicacion', ...
 
-    const selected = filter.getAttribute("data-filter");
-    let itemsToShow = document.querySelectorAll(
-      `.portfolio-grid .portfolio [data-filter="${selected}"]`
-    );
+    // acepta All/Todo/vacío como "mostrar todo"
+    const showAll = (f === 'all' || f === 'todo' || f === '');
 
-    if (selected === "all") {
-      itemsToShow = document.querySelectorAll(".portfolio-grid .portfolio [data-filter]");
-    }
+    // marca botón activo
+    document.querySelector('.portfolio-menu .active')?.classList.remove('active');
+    btn.classList.add('active');
 
-    document.querySelectorAll(".portfolio-grid .portfolio [data-filter]").forEach(el => {
-      const parent = el.parentElement;
-      if (selected === "all" || el.getAttribute("data-filter") === selected) {
-        parent.classList.remove("hide");
-        parent.classList.add("show");
-      } else {
-        parent.classList.remove("show");
-        parent.classList.add("hide");
-      }
+    nodesWithFilter.forEach(el => {
+      const gridItem = el.closest('.portfolio'); // el contenedor que se muestra/oculta
+      const cat = norm(el.dataset.filter);       // categoría del artículo
+
+      // si quieres permitir múltiples categorías separadas por espacios:
+      const catList = cat.split(/\s+/);
+
+      const match = showAll || catList.includes(f);
+
+      // Usa tus clases .show/.hide (o cambia a Tailwind block/hidden si prefieres)
+      gridItem.classList.toggle('hide', !match);
+      gridItem.classList.toggle('show',  match);
+      gridItem.style.removeProperty('display');  // por si quedó un inline display:none
     });
   });
+});
+
+// Estado inicial: todo visible
+nodesWithFilter.forEach(el => {
+  const gridItem = el.closest('.portfolio');
+  gridItem.classList.remove('hide');
+  gridItem.classList.add('show');
+  gridItem.style.removeProperty('display');
 });
 
 // Scroll to top
@@ -192,7 +218,7 @@ if (scrollTopBtn) {
 }
 
 // Animación inicial a tarjetas
-document.querySelectorAll('.flip-card').forEach(card => {
+document.querySelectorAll('.flip-card-odd, .flip-card-even').forEach(card => {
   card.classList.add('scroll-revealed');
 });
 

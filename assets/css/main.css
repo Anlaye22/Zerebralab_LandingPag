@@ -2,16 +2,7 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
-/*
-! tailwindcss v3.4.10 | MIT License | https://tailwindcss.com
-*/
 
-/*
-1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
-2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
-*/
-
-*,
 ::before,
 ::after {
   box-sizing: border-box;
@@ -33,9 +24,9 @@
 1. Use a consistent sensible line-height in all browsers.
 2. Prevent adjustments of font size after orientation changes in iOS.
 3. Use a more readable tab size.
-4. Use the user's configured `sans` font-family by default.
-5. Use the user's configured `sans` font-feature-settings by default.
-6. Use the user's configured `sans` font-variation-settings by default.
+4. Use the user's configured sans font-family by default.
+5. Use the user's configured sans font-feature-settings by default.
+6. Use the user's configured sans font-variation-settings by default.
 7. Disable tap highlights on iOS
 */
 
@@ -62,7 +53,7 @@ html,
 
 /*
 1. Remove the margin in all browsers.
-2. Inherit line-height from `html` so users can set them as a class directly on the `html` element.
+2. Inherit line-height from html so users can set them as a class directly on the html element.
 */
 
 body {
@@ -129,10 +120,10 @@ strong {
 }
 
 /*
-1. Use the user's configured `mono` font-family by default.
-2. Use the user's configured `mono` font-feature-settings by default.
-3. Use the user's configured `mono` font-variation-settings by default.
-4. Correct the odd `em` font sizing in all browsers.
+1. Use the user's configured mono font-family by default.
+2. Use the user's configured mono font-feature-settings by default.
+3. Use the user's configured mono font-variation-settings by default.
+4. Correct the odd em font sizing in all browsers.
 */
 
 code,
@@ -158,7 +149,7 @@ small {
 }
 
 /*
-Prevent `sub` and `sup` elements from affecting the line height in all browsers.
+Prevent sub and sup elements from affecting the line height in all browsers.
 */
 
 sub,
@@ -261,7 +252,7 @@ Use the modern Firefox focus style for all focusable elements.
 }
 
 /*
-Remove the additional `:invalid` styles in Firefox. (https://github.com/mozilla/gecko-dev/blob/2f9eacd9d3d995c937b4251a5557d95d494c9be1/layout/style/res/forms.css#L728-L737)
+Remove the additional :invalid styles in Firefox. (https://github.com/mozilla/gecko-dev/blob/2f9eacd9d3d995c937b4251a5557d95d494c9be1/layout/style/res/forms.css#L728-L737)
 */
 
 :-moz-ui-invalid {
@@ -308,7 +299,7 @@ Remove the inner padding in Chrome and Safari on macOS.
 
 /*
 1. Correct the inability to style clickable types in iOS and Safari.
-2. Change font properties to `inherit` in Safari.
+2. Change font properties to inherit in Safari.
 */
 
 ::-webkit-file-upload-button {
@@ -417,8 +408,8 @@ Make sure disabled buttons don't get the pointer cursor.
 }
 
 /*
-1. Make replaced elements `display: block` by default. (https://github.com/mozdevs/cssremedy/issues/14)
-2. Add `vertical-align: middle` to align replaced elements more sensibly by default. (https://github.com/jensimmons/cssremedy/issues/14#issuecomment-634934210)
+1. Make replaced elements display: block by default. (https://github.com/mozdevs/cssremedy/issues/14)
+2. Add vertical-align: middle to align replaced elements more sensibly by default. (https://github.com/jensimmons/cssremedy/issues/14#issuecomment-634934210)
    This can trigger a poorly considered lint error in some tools but is included by design.
 */
 
@@ -599,11 +590,12 @@ h1,
   h4,
   h5,
   h6{
+  font-family: "MillionDesign", sans-serif;
   margin: 0px;
   text-wrap: pretty;
   font-weight: 700;
   --tw-text-opacity: 1;
-  color: rgb(30 31 36 / var(--tw-text-opacity));
+  color: rgb(230 89 38 / var(--tw-text-opacity));
 }
 
 h1:where([data-web-theme=dark], [data-web-theme=dark] *),
@@ -648,9 +640,12 @@ h6{
 
 p{
   margin: 0px;
-  font-size: 1em;
+  font-size: 22px;
   line-height: 1.5;
+  --tw-text-opacity: 1;
+  font-family: "Galyon", sans-serif;
 }
+
 
 p + p{
   margin-top: 1.25rem;
@@ -1059,13 +1054,18 @@ p + p{
 
 .section-area{
   position: relative;
-  padding-top: 6rem;
-  padding-bottom: 6rem;
+  padding-top: 2rem;
+  padding-bottom: 1rem;
   --tw-text-opacity: 1;
   color: rgb(98 99 108 / var(--tw-text-opacity));
 }
 
-
+.section-head{
+  position: relative;
+  padding-bottom: 22rem;
+  --tw-text-opacity: 1;
+  color: rgb(98 99 108 / var(--tw-text-opacity));
+}
 
 .section-area:where([data-web-theme=dark], [data-web-theme=dark] *){
   --tw-text-opacity: 1;
@@ -1089,6 +1089,8 @@ p + p{
 
 .tabs .tabs-content{
   display: block;
+  
+
 }
 
 .tabs .tabs-content.hide{
@@ -1104,7 +1106,7 @@ p + p{
 
 .portfolio.show{
   display: block;
-}
+} 
 
 .portfolio.hide{
   display: none;
@@ -1193,6 +1195,7 @@ p + p{
 
 .absolute{
   position: absolute;
+
 }
 
 .relative{
@@ -1750,6 +1753,16 @@ p + p{
 .bg-blue-500{
   --tw-bg-opacity: 1;
   background-color: rgb(59 130 246 / var(--tw-bg-opacity));
+}
+
+.bg-orangre-500{
+  --tw-bg-opacity: 1;
+  background-color: rgb(255, 102, 8 / var(--tw-bg-opacity));
+}
+
+.bg-orange-light-500{
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 115 22 / var(--tw-bg-opacity));
 }
 
 .bg-body-light-1{
@@ -2661,6 +2674,47 @@ p + p{
     color: rgb(255 255 255 / var(--tw-text-opacity));
   }
 }
+@font-face {
+  font-family: 'Galyon';
+  src: url('../font/Galyon-Regular.otf') format('opentype');
+  font-weight: 400; /* Regular */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Galyon';
+  src: url('../font/Galyon-Bold.otf') format('opentype');
+  font-weight: 700; /* Bold */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Galyon';
+  src: url('../font/Galyon-Bold-Italic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Galyon';
+  src: url('../font/Galyon-Book.otf') format('opentype');
+  font-weight: 300; /* Book */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Galyon';
+  src: url('../font/Galyon-Book-Italic.otf') format('opentype');
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'MillionDesign';
+  src: url('../font/MillionDesign.ttf') format('opentype');
+  font-weight: 700; /* Bold */
+  font-style: normal;
+}
 
 .whatsapp-float {
   position: fixed;
@@ -2718,17 +2772,43 @@ p + p{
 
 .logo-zerebralab {
 
-  max-width: 200px;
-  width: auto;
+  width : auto;
+  height: auto;
   margin-bottom: 1rem;
 }
 
+:root{
+  --card-dark:#887672;   
+  --card-light:#b9aca7;  
+}
+
+/* 2 tarjetas por fila a partir de md */
+@media (min-width:768px){
+  .cards .flip-card{
+    flex: 0 1 calc(33.3333% - 0.75rem); 
+  }
+}
+
+/* Alternar colores en patrón damero cuando hay 2 por fila */
+@media (min-width:768px){
+  .cards .flip-card:nth-child(4n+1),
+  .cards .flip-card:nth-child(4n+4){ --card-bg: var(--card-dark); }
+
+  .cards .flip-card:nth-child(4n+2),
+  .cards .flip-card:nth-child(4n+3){ --card-bg: var(--card-light); }
+}
+
+/* En móvil (1 por fila) alterna simple */
+@media (max-width:767.98px){
+  .cards .flip-card:nth-child(odd){  --card-bg: var(--card-dark); }
+  .cards .flip-card:nth-child(even){ --card-bg: var(--card-light); }
+}
 
 .flip-card {
   background-color: transparent;
   width: 400px;
   height: 300px;
-  perspective: 1000px;
+  perspective: 10000px;
   justify-content: centers;
 }
 
@@ -2747,33 +2827,91 @@ p + p{
 
 .flip-card-front,
 .flip-card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  -webkit-backface-visibility: hidden; /* Safari */
-  backface-visibility: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border-radius: 1rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: var(--card-bg, #887672);
+  color:#fff;
+  border-radius:2rem;
+  box-shadow:0 4px 12px rgba(0,0,0,.1);
+  position:absolute; inset:0;
+  display:flex; flex-direction:column; justify-content:center; align-items:center;
+  -webkit-backface-visibility:hidden; backface-visibility:hidden;
 }
 
-.flip-card-front {
-  background-color: #ff9100; /* dark */
-  color: white;
-}
 
 .flip-card-front img.icon {
-  width: 70px;
-  height: 70px;
+  width: 300px;
+  height: 300px;
   margin-bottom: 1rem;
   border-radius: 0.5rem;
 }
 
 .flip-card-back {
-  background-color: #f97316; /* orange-500 */
-  color: white;
   transform: rotateY(180deg);
+}
+
+.flip-card-back p {
+  font-family: 'Galyon', sans-serif;
+  max-width: 80%;   
+  text-align: center;
+  line-height: 1.5;
+  font-size: 22px; 
+}
+
+.lista-QueBuscamos {
+  font-size: 22px;   
+  font-family: 'Galyon', sans-serif;
+  font-weight: 300;      
+  line-height: 1.6;      
+  padding-left: 1.5rem;  
+  list-style-type: disc; 
+}
+
+.lista-QueBuscamos li {
+  margin-bottom: 0.5rem; 
+}
+.tab-btn{
+  font-family: 'MillionDesign', sans-serif;
+  font-size: 15px;
+}
+
+.portfolio.show { display: block; }
+.portfolio.hide { display: none !important; }
+
+div p {
+  font-family: 'Galyon', sans-serif;
+  font-size: 26px;
+  line-height: 1.5;
+}
+
+
+.linea-larga-custom {
+  border: 0;                 
+  border-top: 2px solid #ccccccd8; 
+  width: 730px;              
+  max-width: 100%;            
+  margin: 1rem auto;         
+}
+
+.linea-pequeña-custom {
+  border: 0;                 
+  border-top: 2px solid #ccccccd8; 
+  width: 300px;              
+  max-width: 80%;            
+  margin: 1rem auto;         
+}
+
+.text-bold-italic-font {
+  font-family: 'Galyon', sans-serif;
+  font-weight: 700; 
+  font-style: italic;
+  color: #887672;
+
+}
+
+
+.fondo-imagen {
+  background-image: url('./assets/img/head.jpg'); 
+  background-size: cover;      
+  background-position: top; 
+  background-repeat: no-repeat;
+  
 }
