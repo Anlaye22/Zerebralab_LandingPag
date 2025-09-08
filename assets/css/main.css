@@ -2909,7 +2909,7 @@ div p {
 
 
 .fondo-imagen {
-  background-image: url('./assets/img/head.jpg'); 
+  background-image: url('/img/head.jpg'); 
   background-size: cover;      
   background-position: top; 
   background-repeat: no-repeat;
