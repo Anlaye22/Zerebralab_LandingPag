@@ -3238,7 +3238,7 @@ main::after {
   inset: auto  0 0;       /* bottom:0; left:0; right:0 */
   height: 1000px;           /* altura visible del fondo */
   background:
-    url('assets/img/fondo-main.png') no-repeat center bottom;
+    url('../img/fondo-main.png') no-repeat center bottom;
   background-size: cover;
   background-position: bottom;
   z-index: 0;              /* queda detrás del contenido del main */
@@ -3250,18 +3250,4 @@ main::after {
 main > * {
   position: relative;
   z-index: 1;
-}
-
-.hero-banner{
-  height: clamp(220px, 35vw, 480px); /* alto visible (recorta por abajo) */
-  overflow: hidden;                   /* oculta lo que sobra */
-}
-
-/* La imagen llena el contenedor y se recorta */
-.hero-banner img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;          /* llena y recorta */
-  object-position: center 0%;/* empuja el encuadre hacia abajo/arriba */
-  display: block;
 }
