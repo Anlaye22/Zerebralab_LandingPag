@@ -592,6 +592,7 @@
     h5,
     h6{
     font-family: "MillionDesign", sans-serif;
+    text-align: center;
     margin: 0px;
     text-wrap: pretty;
     font-weight: 700;
@@ -3357,3 +3358,4 @@ img, svg { max-width: 100%; height: auto; display: block; }
   background: #e65c00; /* un poco más oscuro al hover */
   transform: scale(1.1);
 }
+
