@@ -203,7 +203,7 @@
       <!-- Hero section -->
       <section
         id="Inicio"
-        class="relative section-head fondo-imagen text-primary-color pt-[120px] md:pt-[130px] lg:pt-[160px] ">
+        class="relative section-head fondo-imagen-hero text-primary-color pt-[120px] md:pt-[130px] lg:pt-[160px] ">
       </section>
       
 
@@ -290,8 +290,10 @@
       case "proposito":
         html = `
         <img src="/img/Icono-Proposito.png" class="icon mx-auto" />
-        <hr class="linea-larga-custom" width="100%">
-        <p class="text-center text-bold-italic-font">
+          <p class="text-center">
+          ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+          </p>
+          <p class="text-center text-bold-italic-font">
           "Ensamblar a la medida"<br> </p>
           <p class="text-center">
           Empoderar a las empresas <br>
@@ -300,14 +302,15 @@
           decisiones informadas<br>
           y estratégicas.</p>
           <br>
-          <hr class="linea-pequeña-custom">
-
+          <p class="text-center">
+          ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+          </p>
         `;
         break;
       case "buscamos":
         html = `
-          <p class="mb-4">Que las empresas logren:</p>
-          <ul class="lista-QueBuscamos">
+          <p class="text-center mb-4">Que las empresas logren:</p>
+          <ul class=" lista-QueBuscamos">
             <li>Fortalecer su reputación.</li>
             <li>Descubrir nuevos giros de negocio.</li>
             <li>Mejorar la relación de plataformas digitales.</li>
@@ -612,243 +615,133 @@
       </section>
 
       <!-- Team section -->
-      <section id="equipo" class="section-area">
-        <div class="container">
-          <div class="scroll-revealed text-center max-w-[550px] mx-auto mb-12">
-            <h6 class="mb-2 block text-lg font-semibold text-primary"></h6>
-            <h2 class="mb-6">Nuestro Equipo</h2>
-           <p class="text-justify">Un equipo de expertos que trabajan transformando datos en información para decisiones estratégicas y sostenibles.</p>
-          </div>
-
-          <div class="row">
-            <div class="scroll-revealed col-12 sm:col-6 md:col-6 lg:col-3">
-              <figure
-                class="group rounded-xl bg-body-light-1 dark:bg-body-dark-12/10 px-5 pb-10 pt-12 shadow-card-2 hover:shadow-lg hover:-translate-y-1"
-              >
-                <div class="relative z-10 mx-auto mb-5 h-[120px] w-[120px]">
-                  <img
-                    src="./assets/img/avatar/gustavo-cortez.jpg"
-                    alt="Team picture"
-                    class="h-full w-full rounded-full object-cover"
-                  />
-                  <span
-                    class="absolute bottom-0 left-0 -z-10 h-10 w-10 rounded-full opacity-0 group-hover:opacity-100"
-                    style="background-color: #ff5733;"
-                  ></span>
-                  <span
-                    class="absolute top-0 right-0 -z-10 h-10 w-10 rounded-full opacity-0 group-hover:opacity-100"
-                    style="background-color: #ff583398;"
-                  ></span>
-                </div>
-                <figcaption class="text-center block">
-                  <h4
-                    class="mb-1"
-                  >
-                    GUSTAVO CORTEZ
-                  </h4>
-                  <p 
-                    class="mb-5 text-sm text-body-light-11 dark:text-body-dark-11 text-justify"
-                  >
-                    Magíster. Fundador de Zerebralab. Gestor principal de contenidos especializados. Fue director y editor general en varios medios de comunicación de prestigio y trayectoria en el país.
-                  </p>
-                  <div class="flex items-center justify-center gap-5">
-                  <a href="https://www.linkedin.com/in/gustavo-cortez-galecio-58b344190/" class="text-body-light-10 dark:text-body-dark-10 hover:text-primary"><i class="lni lni-linkedin-original"></i> </a>
-                  </div>
-                </figcaption>
-              </figure>
-            </div>
-
-            <div class="scroll-revealed col-12 sm:col-6 md:col-6 lg:col-3">
-              <figure
-                class="group rounded-xl bg-body-light-1 dark:bg-body-dark-12/10 px-5 pb-10 pt-12 shadow-card-2 hover:shadow-lg hover:-translate-y-1"
-              >
-                <div class="relative z-10 mx-auto mb-5 h-[120px] w-[120px]">
-                  <img
-                    src="./assets/img/avatar/fabricio-layedra.jpg"
-                    alt="Team picture"
-                    class="h-full w-full rounded-full object-cover"
-                  />
-                  <span
-                    class="absolute bottom-0 left-0 -z-10 h-10 w-10 rounded-full opacity-0 group-hover:opacity-100"
-                    style="background-color: #ff5733;"
-                  ></span>
-                  <span
-                    class="absolute top-0 right-0 -z-10 h-10 w-10 rounded-full opacity-0 group-hover:opacity-100"
-                    style="background-color: #ff583398;"
-                  ></span>
-                </div>
-                <figcaption class="text-center block">
-                  <h4
-                    class="mb-1"
-                  >
-                    FABRICIO LAYEDRA
-                  </h4>
-                  <p
-                    class="mb-5 text-sm text-body-light-11 dark:text-body-dark-11 text-justify"
-                  >
-                     Máster en Ciencia de Datos y Marketing Digital. Experto en el desarrollo de soluciones de problemas comerciales y operacionales a través de análisis de datos.
-                  </p>
-                  <div class="flex items-center justify-center gap-5">
-                    <a href="https://www.linkedin.com/in/fabriciolayedra/" class="text-body-light-10 dark:text-body-dark-10 hover:text-primary"><i class="lni lni-linkedin-original"></i> </a>
-                  </div>
-                </figcaption>
-              </figure>
-            </div>
-
-            <div class="scroll-revealed col-12 sm:col-6 md:col-6 lg:col-3">
-        <figure class="group rounded-xl bg-body-light-1 dark:bg-body-dark-12/10 px-5 pb-10 pt-12 shadow-card-2 hover:shadow-lg hover:-translate-y-1 min-h-[520px]">
-          <div class="relative z-10 mx-auto mb-5 h-[120px] w-[120px]">
-            <img src="./assets/img/avatar/paul-simbal.jpg" alt="Paul Simball" class="h-full w-full rounded-full object-cover" />
-            <span class="absolute bottom-0 left-0 -z-10 h-10 w-10 rounded-full opacity-0 group-hover:opacity-100"
-              style="background-color: #ff5733;"
-            ></span>
-            <span class="absolute top-0 right-0 -z-10 h-10 w-10 rounded-full opacity-0 group-hover:opacity-100"
-              style="background-color: #ff583398;"
-            ></span>
-          </div>
-          <figcaption class="text-center block">
-            <h4 class="mb-1">PAÚL SIMBALL</h4>
-            <p class="mb-5 text-sm text-body-light-11 dark:text-body-dark-11 text-justify">
-              Economista bilingüe y máster en Sostenibilidad e Innovación. Con más de 9 años de experiencia en sostenibilidad empresarial, liderando proyectos que han recibido galardones internacionales.
-            </p>
-            <div class="flex items-center justify-center gap-5">
-              <a href="https://www.linkedin.com/in/paulasm0703/" class="text-body-light-10 dark:text-body-dark-10 hover:text-primary"><i class="lni lni-linkedin-original"></i> </a>
-            </div>
-          </figcaption>
-        </figure>
-      </div>
-            <div class="scroll-revealed col-12 sm:col-6 md:col-6 lg:col-3">
-        <figure class="group rounded-xl bg-body-light-1 dark:bg-body-dark-12/10 px-5 pb-10 pt-12 shadow-card-2 hover:shadow-lg hover:-translate-y-1 min-h-[520px]">
-          <div class="relative z-10 mx-auto mb-5 h-[120px] w-[120px]">
-            <img src="./assets/img/avatar/rodrigo-castro.jpg" alt="Rodrigo Castro" class="h-full w-full rounded-full object-cover" />
-             <span
-              class="absolute bottom-0 left-0 -z-10 h-10 w-10 rounded-full opacity-0 group-hover:opacity-100"
-              style="background-color: #ff5733;"
-            ></span>
-            <span class="absolute top-0 right-0 -z-10 h-10 w-10 rounded-full opacity-0 group-hover:opacity-100"
-              style="background-color: #ff583398;"
-            ></span>
-          </div>
-          <figcaption class="text-center block">
-            <h4 class="mb-1">RODRIGO CASTRO</h4>
-            <p class="mb-5 text-sm text-body-light-11 dark:text-body-dark-11 text-justify">
-              Científico Computacional. Se especializa en la implementación de Inteligencia Artificial (IA) para potenciar la productividad y sostenibilidad de las industrias productivas de Latinoamérica.
-            </p>
-            <div class="flex items-center justify-center gap-5">
-              <a href="https://www.linkedin.com/in/rodrigo-castro-3371a7155/" class="text-body-light-10 dark:text-body-dark-10 hover:text-primary"><i class="lni lni-linkedin-original"></i> </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Testimonials section -->
-
-       
-      <!-- Contact section -->
-    <section id="contacto" class="section-area mb-16">
+<section id="equipo" class="section-area">
   <div class="container">
-    <div class="row justify-center">
-      <!-- Contacto -->
-      <div class="col-12 md:col-4">
-        <div class="scroll-revealed py-5 px-6 rounded-xl shadow-card-1 bg-body-light-1 dark:bg-primary-dark-2 flex gap-6 hover:shadow-lg">
-          <div>
-            <i class="lni lni-phone w-[50px] h-[50px] inline-flex items-center justify-center rounded-lg text-[1.25rem] bg-primary text-primary-color"></i>
-          </div>
-          <div>
-            <h4 class="text-[1.25rem] text-primary mb-3">Contacto</h4>
-            <p class="m-0">Priscila Álvarez</p>
-            <p class="m-0">+593 99 902 2861</p>
-          </div>
-        </div>
-      </div>
+    <!-- Encabezado -->
+    <div class="text-center mx-auto mb-12 max-w-[845px]">
+      <h2 class="mb-2">NUESTRO EQUIPO</h2>
+      <p class="team-sep">⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</p>
+      <p class="mt-3">Un equipo de expertos que trabajan transformando<br>
+        datos en información para decisiones<br>
+        estratégicas y sostenibles.</p>
+    </div>
 
-      <!-- Dirección -->
-      <div class="col-12 md:col-4">
-        <div class="scroll-revealed py-5 px-6 rounded-xl shadow-card-1 bg-body-light-1 dark:bg-primary-dark-2 flex gap-6 hover:shadow-lg">
-          <div>
-            <i class="lni lni-map-marker w-[50px] h-[50px] inline-flex items-center justify-center rounded-lg text-[1.25rem] bg-primary text-primary-color"></i>
+    <!-- Grid de tarjetas -->
+    <div class="row team-grid">
+      <!-- 1 -->
+      <article class="col-12 sm:col-6 md:col-6 lg:col-3 team-col">
+        <div class="team-card">
+          <div class="team-photo">
+            <img src="./assets/img/avatar/gustavo-cortez.jpg" alt="Gustavo Cortez">
           </div>
-          <div>
-            <h4 class="text-[1.25rem] text-primary mb-3">Dirección</h4>
-            <p class="m-0">Guayas, Guayaquil</p>
-            <p class="m-0">Ecuador</p>
-          </div>
+          <h3 class="team-name">GUSTAVO<br> CORTEZ</h3>
+          <p class="team-role">Experto en Gobernanza</p>
+          <p class="team-bio">
+            Magíster. Fundador de Zerebralab. Gestor principal de contenidos especializados.
+            Fue director y editor general en varios medios de comunicación de prestigio y trayectoria en el país.
+          </p>
+          <a class="team-link" href="https://www.linkedin.com/in/gustavo-cortez-galecio-58b344190/" target="_blank" rel="noopener">Ir al LinkedIn de Gustavo</a>
         </div>
-      </div>
+      </article>
 
-      <!-- Horario -->
-      <div class="col-12 md:col-4">
-        <div class="scroll-revealed py-5 px-6 rounded-xl shadow-card-1 bg-body-light-1 dark:bg-primary-dark-2 flex gap-6 hover:shadow-lg">
-          <div>
-            <i class="lni lni-alarm-clock w-[50px] h-[50px] inline-flex items-center justify-center rounded-lg text-[1.25rem] bg-primary text-primary-color"></i>
+      <!-- 2 -->
+      <article class="col-12 sm:col-6 md:col-6 lg:col-3 team-col">
+        <div class="team-card">
+          <div class="team-photo">
+            <img src="./assets/img/avatar/fabricio-layedra.jpg" alt="Fabricio Layedra">
           </div>
-          <div>
-            <h4 class="text-[1.25rem] text-primary mb-3">Horario</h4>
-            <p class="m-0">8 Horas / 5 Días Abierto</p>
-            <p class="m-0">8:00 AM - 5:00 PM</p>
-          </div>
+          <h3 class="team-name">FABRICIO<br> LAYEDRA</h3>
+          <p class="team-role">Experto en Negocios</p>
+          <p class="team-bio">
+            Máster en Ciencia de Datos y Marketing Digital. Experto en el desarrollo de soluciones de problemas
+            comerciales y operacionales a través de análisis de datos.
+          </p>
+          <a class="team-link" href="https://www.linkedin.com/in/fabriciolayedra/" target="_blank" rel="noopener">Ir al LinkedIn de Fabricio</a>
         </div>
-      </div>
+      </article>
+
+      <!-- 3 -->
+      <article class="col-12 sm:col-6 md:col-6 lg:col-3 team-col">
+        <div class="team-card">
+          <div class="team-photo">
+            <img src="./assets/img/avatar/paul-simbal.jpg" alt="Paúl Simball">
+          </div>
+          <h3 class="team-name">PAÚL<br> SIMBALL</h3>
+          <p class="team-role">Experto en Sostenibilidad</p>
+          <p class="team-bio">
+            Economista bilingüe y máster en Sostenibilidad e Innovación. Con más de 9 años de experiencia en sostenibilidad empresarial,
+            liderando proyectos que han recibido galardones internacionales.
+          </p>
+          <a class="team-link" href="https://www.linkedin.com/in/paulasm0703/" target="_blank" rel="noopener">Ir al LinkedIn de Paúl</a>
+        </div>
+      </article>
+
+      <!-- 4 -->
+      <article class="col-12 sm:col-6 md:col-6 lg:col-3 team-col">
+        <div class="team-card">
+          <div class="team-photo">
+            <img src="./assets/img/avatar/rodrigo-castro.jpg" alt="Rodrigo Castro">
+          </div>
+          <h3 class="team-name">RODRIGO<br> CASTRO</h3>
+          <p class="team-role">Experto en Datos</p>
+          <p class="team-bio">
+            Científico Computacional. Se especializa en la implementación de IA para potenciar la productividad
+            y sostenibilidad de las industrias productivas de Latinoamérica.
+          </p>
+          <a class="team-link" href="https://www.linkedin.com/in/rodrigo-castro-3371a7155/" target="_blank" rel="noopener">Ir al LinkedIn de Rodrigo</a>
+        </div>
+      </article>
     </div>
   </div>
 </section>
-<!-- Contact section-->
 
 
 <!-- Newsletter Section -->
-<section id="newsletter" class="section-area bg-primary text-gray-900 dark:text-primary-color py-16">
-  <div class="container max-w-xl mx-auto text-center">
-    <h2 class="text-3xl font-semibold mb-4">Suscríbete a nuestro Newsletter</h2>
-    <p>Recibe contenido útil y novedades directamente en tu correo Gmail.</p>
+<section id="newsletter" class="py-10">
+  <div class="nl-wrapper">
+    <div class="nl-card">
+      <h2 class="nl-title">SUSCRÍBETE A NUESTRO NEWSLETTER</h2>
 
-    <form id="form-newsletter" class="flex flex-col sm:flex-row gap-4 justify-center items-center mt-6">
-      <input
-        type="email"
-        id="correo"
-        required
-        placeholder="Tu correo @gmail.com"
-        class="w-full sm:w-2/3 px-4 py-2 text-primary-color rounded-md focus:outline-none focus:ring-2 focus:ring-white"
-      />
-      <button type="submit" class="tab-btn py-2 px-4 rounded-md font-medium">
-        Suscribirme
-      </button>
-    </form>
+      <!-- Form -->
+      <form id="nl-form" class="nl-form" autocomplete="off">
+        <input id="nl-email" type="email" placeholder="Tu correo aquí @gmail.com" required />
+        <button class="nl-btn" type="submit">Suscribirme</button>
+      </form>
+      <p id="nl-msg" class="nl-msg" aria-live="polite"></p>
 
-    <p id="mensaje-newsletter" class="mt-4 text-white hidden">¡Gracias por suscribirte!</p>
+      <h3 class="nl-subtitle">BOLETINES ANTERIORES</h3>
 
-    <div class="container max-w-2xl mx-auto mt-10">
-      <h2 class="text-2xl font-semibold mb-6 text-center">Boletines anteriores</h2>
-      <div id="newsletter-list" class="space-y-4"></div>
-      <p id="error-boletines" class="text-red-600 mt-4 hidden">Error al cargar boletines.</p>
+      <div class="nl-carousel">
+        <button class="nl-arrow" id="nl-prev" aria-label="Anterior">‹</button>
+
+        <div class="nl-track" id="nl-track">
+          <!-- JS inyecta las miniaturas -->
+        </div>
+
+        <button class="nl-arrow" id="nl-next" aria-label="Siguiente">›</button>
+      </div>
+      <p id="nl-caption" class="nl-caption"></p>
+
+        <!-- Pie de contacto (opcional) -->
+
     </div>
-    </section>
+      <div class="nl-contact">
+    <h4>CONTÁCTANOS</h4>
+    <p><a href="mailto:zerebralabsa@gmail.com">zerebralabsa@gmail.com</a></p>
+    <p>+593 99 902 2861</p>
+  </div>
+  </div>
+
+
+</section>
 
     </main>
 
     <!-- Footer -->
-    <footer class="bg-[url('/assets/img/Bottom.svg')] bg-cover bg-center bg-no-repeat text-base ">
-      <div class="container py-20 lg:py-[100px]">
-        <div class="row">
-          <div class="col-12 order-first lg:col-4">
-            <div class="w-full">
-              <a href="." class="inline-block mb-5">
-                <img src="./assets/img/Zerebralab-logo-slogan.svg" alt="Zerebralab logo" class="h-10" />
-              </a>
-              <p class="mb-8">
-                Datos construyen relatos
-              </p>
+    <footer class="bg-primary-color section-area">
+      <div class="container py-8 text-center">
+        <img src="assets/img/logo_zlab_footer.png" class="h-15 mb-11 justify-center" alt="Zerebralab logo"/>
 
-        </div>
-      </div>
-      <div class="w-full border-t border-solid border-alpha-dark"></div>
-      <div class="container py-8">
-        <div class="flex flex-wrap">
-          <div class="w-full md:w-1/2">
-            <p class="text-sm text-jusufi-light-11 dark:text-body-dark-11">
-              © 2024 Zerebralab. Todos los derechos reservados.
-            </p>
-          </div>
-        </div>
       </div>
     </footer>
 

@@ -263,3 +263,89 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   observer.observe(contenedor);
 });
+
+
+/* ===== Newsletter logic ===== */
+
+// Data de ejemplo (reemplaza con lo que traigas de Firestore si quieres)
+const NL_DATA = [
+  { title: 'Boletín • Agosto 2025',  thumb: './assets/img/head.jpg',           url: '#' },
+  { title: 'Boletín • Julio 2025',   thumb: './assets/img/Icono-Proposito.png', url: '#' },
+  { title: 'Boletín • Junio 2025',   thumb: './assets/img/Icono-QBuscamos.png', url: '#' },
+  { title: 'Boletín • Mayo 2025',    thumb: './assets/img/head.jpg',           url: '#' },
+  { title: 'Boletín • Abril 2025',   thumb: './assets/img/Icono-Proposito.png', url: '#' },
+];
+
+(function initNewsletter(){
+  const track   = document.getElementById('nl-track');
+  const prevBtn = document.getElementById('nl-prev');
+  const nextBtn = document.getElementById('nl-next');
+  const caption = document.getElementById('nl-caption');
+
+  if (!track || !prevBtn || !nextBtn) return;
+
+  let current = 0;
+
+  // Render miniaturas
+  NL_DATA.forEach((n, i) => {
+    const b = document.createElement('button');
+    b.className = 'nl-thumb';
+    b.type = 'button';
+    b.dataset.index = i;
+
+    const img = document.createElement('img');
+    img.src = n.thumb;
+    img.alt = n.title;
+    b.appendChild(img);
+
+    b.addEventListener('click', () => select(i));
+    track.appendChild(b);
+  });
+
+  function select(i){
+    current = Math.max(0, Math.min(i, NL_DATA.length - 1));
+    caption.textContent = NL_DATA[current].title;
+
+    // Marcar activo
+    [...track.children].forEach((el, idx) => {
+      el.classList.toggle('is-active', idx === current);
+    });
+
+    // Centrar seleccionado (scroll suave)
+    track.children[current]?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  }
+
+  prevBtn.addEventListener('click', () => select(current - 1));
+  nextBtn.addEventListener('click', () => select(current + 1));
+
+  // Estado inicial
+  select(2); // el del centro como en tu captura
+
+  // Form
+  const form = document.getElementById('nl-form');
+  const input = document.getElementById('nl-email');
+  const msg = document.getElementById('nl-msg');
+
+  const onlyGmail = (s) => /^[a-z0-9._%+-]+@gmail\.com$/i.test((s||'').trim());
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = input.value.trim();
+
+    if (!onlyGmail(email)) {
+      msg.textContent = 'Solo se permiten correos Gmail válidos.';
+      msg.style.color = '#d33';
+      return;
+    }
+
+    // Aquí podrías llamar a Firebase: guardarSuscriptor(email)
+    // await guardarSuscriptor(email);
+
+    msg.textContent = '¡Gracias por suscribirte!';
+    msg.style.color = '#4caf50';
+    form.reset();
+
+    // limpiar mensaje
+    setTimeout(() => { msg.textContent = ''; }, 3500);
+  });
+})();
