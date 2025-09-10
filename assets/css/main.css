@@ -2929,8 +2929,8 @@
 
 .section-area-newletter {
   background-color: #adadad5e;
-  padding-top: 6rem;   
-  padding-bottom: 6rem;
+  padding-top: 2rem;   
+  padding-bottom: 1rem;
   border-radius: 2rem;
 }
 
@@ -3229,7 +3229,7 @@ footer div img {
 main {
   position: relative;
   isolation: isolate;      /* para manejar bien z-index */
-  padding-bottom: 320px;   /* espacio para que el contenido no tape la imagen */
+  padding-bottom: 25px;   /* espacio para que el contenido no tape la imagen */
 }
 
 main::after {
@@ -3296,3 +3296,62 @@ main > * {
 .ic-navbar.sticky .ic-page-scroll.active{ color:#ff6e00 !important; }
 
 section[id]{ scroll-margin-top: 90px; } 
+
+.newsletter-area { background:#b9b9b9; }
+.newsletter-area::before{
+  content:"";
+  position:absolute;
+  inset: -24px 12px -24px 12px;   /* top/right/bottom/left en móvil */
+  background:#b9b9b9;
+  border-radius: 24px;
+  z-index:0;
+  box-shadow: 0 24px 48px rgba(0,0,0,.16);
+}
+@media (min-width:640px){
+  .newsletter-area::before{ inset:-48px 40px -48px 40px; border-radius:32px; }
+}
+
+/* Miniaturas y flechas más contenidas en móvil */
+.nl-carousel .thumb{ width:64px; height:64px; }    /* sm: w-24 h-24 si usas Tailwind util */
+.nl-arrow{ width:40px; height:40px; }
+html, body { max-width: 100%; overflow-x: hidden; }
+
+
+/* Evita scroll horizontal global */
+html, body { max-width: 100%; overflow-x: hidden; }
+
+/* Todas las imágenes y SVGs se adaptan */
+img, svg { max-width: 100%; height: auto; display: block; }
+
+/* Iconos grandes (los redondos) responsivos */
+.icon { width: min(80vw, 320px); height: auto; }
+
+/* En móvil, reduce el “fondo gris grande” si lo usas con ::before */
+@media (max-width: 640px){
+  .newsletter-area::before{ inset: -24px 12px -24px 12px; border-radius: 24px; }
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.social-icons a {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;       /* círculo */
+  background: #ff6e00;      /* fondo naranja */
+  color: #fff;              /* icono en blanco */
+  font-size: 1rem;        /* tamaño del icono */
+  transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+  background: #e65c00; /* un poco más oscuro al hover */
+  transform: scale(1.1);
+}

@@ -1,3 +1,5 @@
+import { guardarSuscriptor, obtenerNewsletters } from "./firebase.js";
+
 "use strict";
 
 // Page loading
@@ -301,3 +303,108 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+
+/* ===== Newsletter logic ===== */
+
+(function initNewsletterFirebase(){
+  const track   = document.getElementById('nl-track');
+  const prevBtn = document.getElementById('nl-prev');
+  const nextBtn = document.getElementById('nl-next');
+  const caption = document.getElementById('nl-caption');
+
+  const form = document.getElementById('nl-form');
+  const input = document.getElementById('nl-email');
+  const msg   = document.getElementById('nl-msg');
+
+  if (!track || !prevBtn || !nextBtn || !caption) return; // si no existe la sección, salimos.
+
+  let items = [];
+  let current = 0;
+
+  const onlyGmail = (s) => /^[a-z0-9._%+-]+@gmail\.com$/i.test((s||'').trim());
+
+  // Renderiza miniaturas
+  function renderThumbnails() {
+    track.innerHTML = "";
+    items.forEach((n, i) => {
+      const b = document.createElement('button');
+      b.className = 'nl-thumb';
+      b.type = 'button';
+      b.dataset.index = i;
+
+      const img = document.createElement('img');
+      img.src = n.thumb;
+      img.alt = n.title;
+      b.appendChild(img);
+
+      // click: seleccionar y si se hace doble click, abrir PDF
+      b.addEventListener('click', () => select(i));
+      b.addEventListener('dblclick', () => {
+        if (items[i]?.url && items[i].url !== '#') window.open(items[i].url, '_blank');
+      });
+
+      track.appendChild(b);
+    });
+  }
+
+  function select(i){
+    if (!items.length) return;
+    current = Math.max(0, Math.min(i, items.length - 1));
+    caption.textContent = items[current].title || 'Newsletter';
+
+    // estado activo visual
+    [...track.children].forEach((el, idx) => {
+      el.classList.toggle('is-active', idx === current);
+    });
+
+    // centrar seleccionado
+    track.children[current]?.scrollIntoView({
+      behavior: 'smooth',
+      inline: 'center',
+      block: 'nearest'
+    });
+  }
+
+  prevBtn.addEventListener('click', () => select(current - 1));
+  nextBtn.addEventListener('click', () => select(current + 1));
+
+  // Formulario: guardar suscriptor en Firestore
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = (input?.value || "").trim();
+
+    if (!onlyGmail(email)) {
+      if (msg) { msg.textContent = 'Solo se permiten correos Gmail válidos.'; msg.style.color = '#d33'; }
+      return;
+    }
+    try {
+      await guardarSuscriptor(email);
+      if (msg) { msg.textContent = '¡Gracias por suscribirte!'; msg.style.color = '#4caf50'; }
+      form.reset();
+      setTimeout(() => { if (msg) msg.textContent = ''; }, 3500);
+    } catch (err) {
+      console.error(err);
+      if (msg) { msg.textContent = 'Ocurrió un error. Intenta más tarde.'; msg.style.color = '#d33'; }
+    }
+  });
+
+  // Carga desde Firestore
+  (async () => {
+    try {
+      items = await obtenerNewsletters();
+      // Fallback si no hay data aún
+      if (!items.length) {
+        items = [
+          { title: 'Próximamente…', thumb: '/assets/img/newsletters/thumb-placeholder.jpg', url: '#', fecha: null }
+        ];
+      }
+      renderThumbnails();
+      select(0); // empieza en el primero más reciente
+    } catch (err) {
+      console.error('Error obteniendo newsletters:', err);
+      // fallback visual mínimo
+      caption.textContent = 'No fue posible cargar los boletines.';
+    }
+  })();
+})();
