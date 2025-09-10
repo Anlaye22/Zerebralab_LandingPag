@@ -1061,13 +1061,7 @@
     color: rgb(98 99 108 / var(--tw-text-opacity));
   }
 
-  .section-head{
-    position: relative;
-    padding-bottom: 22rem;
-    --tw-text-opacity: 1;
-    color: rgb(98 99 108 / var(--tw-text-opacity));
-  }
-
+  
   .section-area:where([data-web-theme=dark], [data-web-theme=dark] *){
     --tw-text-opacity: 1;
     color: rgb(180 182 191 / var(--tw-text-opacity));
@@ -2888,23 +2882,6 @@
     line-height: 1.5;
   }
 
-
-  .linea-larga-custom {
-    border: 0;                 
-    border-top: 2px solid #ccccccd8; 
-    width: 730px;              
-    max-width: 100%;            
-    margin: 1rem auto;         
-  }
-
-  .linea-pequeña-custom {
-    border: 0;                 
-    border-top: 2px solid #ccccccd8; 
-    width: 300px;              
-    max-width: 80%;            
-    margin: 1rem auto;         
-  }
-
   .text-bold-italic-font {
     font-family: 'Galyon', sans-serif;
     font-weight: 700; 
@@ -2931,6 +2908,15 @@
     
   }
 
+    .fondo-imagen-main {
+    background-image: url('assets/img/fondo-main.png');
+    background-size: cover;  
+    background-position: bottom; 
+    background-repeat: no-repeat;
+    
+    
+  }
+
   /* ===== Newsletter look ===== */
 
   :root{
@@ -2939,14 +2925,24 @@
     --nl-soft: #e9e6e5;
   }
 
-  #newsletter{
-    background: linear-gradient(#fff, #fff0);
-  }
+
+
+.section-area-newletter {
+  background-color: #adadad5e;
+  padding-top: 6rem;   
+  padding-bottom: 6rem;
+  border-radius: 2rem;
+}
+
+#newsletter {
+  position: relative;
+}
+
 
   .nl-wrapper{
     max-width: 920px;
     margin: 0 auto 1.25rem;
-    padding: 0 16px;
+    padding: 20px;
   }
 
   .nl-card{
@@ -3225,4 +3221,47 @@
   font-size: 1.3em; /* para que el número siga viéndose un poco más grande */
 }
 
+footer div img {
+  height: auto;
+  width: 300px;
+}
 
+main {
+  position: relative;
+  isolation: isolate;      /* para manejar bien z-index */
+  padding-bottom: 320px;   /* espacio para que el contenido no tape la imagen */
+}
+
+main::after {
+  content: "";
+  position: absolute;
+  inset: auto  0 0;       /* bottom:0; left:0; right:0 */
+  height: 1000px;           /* altura visible del fondo */
+  background:
+    url('assets/img/fondo-main.png') no-repeat center bottom;
+  background-size: cover;
+  background-position: bottom;
+  z-index: 0;              /* queda detrás del contenido del main */
+  pointer-events: none;
+}
+
+
+/* Asegura que el contenido quede por encima del ::after */
+main > * {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-banner{
+  height: clamp(220px, 35vw, 480px); /* alto visible (recorta por abajo) */
+  overflow: hidden;                   /* oculta lo que sobra */
+}
+
+/* La imagen llena el contenedor y se recorta */
+.hero-banner img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;          /* llena y recorta */
+  object-position: center 0%;/* empuja el encuadre hacia abajo/arriba */
+  display: block;
+}
