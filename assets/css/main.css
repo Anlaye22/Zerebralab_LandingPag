@@ -3014,6 +3014,7 @@
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
+    justify-content: center;
     gap: 12px;
     max-width: 620px;
     margin: 0 auto;
@@ -3035,6 +3036,7 @@
   .nl-track{
     display: flex;
     gap: 12px;
+    justify-content: center;
     overflow: hidden;
     padding: 6px 2px;
   }

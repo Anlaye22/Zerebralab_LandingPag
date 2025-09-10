@@ -1,8 +1,9 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import {
-  getFirestore, doc, setDoc, getDocs, collection,
-  query, orderBy, serverTimestamp
-} from "firebase/firestore";
+  getFirestore,
+  doc, setDoc,
+  getDocs, collection
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAJl001eotrACu8_qcvYLxrHVsWDcL2RFw",
@@ -16,28 +17,17 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db  = getFirestore(app);
 
-// Guarda/actualiza suscriptor por email (id = email en minúsculas)
+// Guarda suscriptor (documento con id = correo en minúsculas)
 export async function guardarSuscriptor(correo) {
-  const id = (correo || "").toLowerCase().trim();
-  if (!id) return;
+  const id = (correo || "").toLowerCase();
   await setDoc(doc(db, "suscriptores", id), {
-    correo: id,
-    createdAt: serverTimestamp()
-  }, { merge: true });
+    correo: correo,
+    fecha: new Date()
+  });
 }
 
-// Obtiene newsletters ordenados por fecha desc
+// Lee boletines de la colección "newsletters"
 export async function obtenerNewsletters() {
-  const q = query(collection(db, "newsletters"), orderBy("fecha", "desc"));
-  const snap = await getDocs(q);
-  return snap.docs.map(d => {
-    const data = d.data() || {};
-    return {
-      id: d.id,
-      title: data.title || data.titulo || "Newsletter",
-      thumb: data.thumb || data.thumbUrl || "/assets/img/newsletters/thumb-placeholder.jpg",
-      url:   data.url   || data.fileUrl  || data.archivo || "#",
-      fecha: data.fecha?.toDate?.() || data.fecha || null,
-    };
-  });
+  const snap = await getDocs(collection(db, "newsletters"));
+  return snap.docs.map(d => ({ id: d.id, ...d.data() }));
 }

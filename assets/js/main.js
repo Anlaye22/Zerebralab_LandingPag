@@ -408,3 +408,103 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   })();
 })();
+
+
+// ====== Newsletter (Firestore) ======
+document.addEventListener('DOMContentLoaded', async () => {
+  const track   = document.getElementById('nl-track');
+  const prevBtn = document.getElementById('nl-prev');
+  const nextBtn = document.getElementById('nl-next');
+  const caption = document.getElementById('nl-caption');
+  const form    = document.getElementById('nl-form');
+  const input   = document.getElementById('nl-email');
+  const msg     = document.getElementById('nl-msg');
+
+  if (!track || !prevBtn || !nextBtn) return;
+
+  // 1) Traer boletines de Firestore
+  let data = [];
+  try {
+    const { obtenerNewsletters, guardarSuscriptor } = await import('./firebase.js');
+
+    data = await obtenerNewsletters();
+
+    // Normaliza y ordena por fecha (campo timestamp)
+    data = data.map(n => ({
+      title: n.title || n.titulo || 'Boletín',
+      thumb: n.thumb || n.miniatura || '',
+      url:   n.url   || '',
+      fecha: (n.fecha && (n.fecha.toDate ? n.fecha.toDate() : new Date(n.fecha))) || new Date(0)
+    }))
+    .sort((a,b) => b.fecha - a.fecha);
+
+    if (!data.length) {
+      caption.textContent = 'Aún no hay boletines.';
+    }
+  } catch (err) {
+    console.error('Error cargando newsletters:', err);
+    caption.textContent = 'No fue posible cargar los boletines.';
+    return;
+  }
+
+  // 2) Render thumbs
+  track.innerHTML = '';
+  data.forEach((n, i) => {
+    const b = document.createElement('button');
+    b.className = 'nl-thumb';
+    b.type = 'button';
+    b.dataset.index = i;
+
+    const img = document.createElement('img');
+    img.src = n.thumb;
+    img.alt = n.title;
+    b.appendChild(img);
+
+    b.addEventListener('click', () => select(i));
+    track.appendChild(b);
+  });
+
+  let current = 0;
+  function select(i){
+    current = Math.max(0, Math.min(i, data.length - 1));
+    caption.textContent = data[current].title || '';
+    [...track.children].forEach((el, idx) => el.classList.toggle('is-active', idx === current));
+    track.children[current]?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  }
+  prevBtn.addEventListener('click', () => select(current - 1));
+  nextBtn.addEventListener('click', () => select(current + 1));
+  select(0); // primer boletín por defecto
+
+  // 3) Suscripción (solo @gmail.com)
+  const onlyGmail = (s) => /^[a-z0-9._%+-]+@gmail\.com$/i.test((s||'').trim());
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = (input.value || '').trim();
+
+    if (!onlyGmail(email)) {
+      msg.textContent = 'Solo se permiten correos Gmail válidos.';
+      msg.style.color = '#d33';
+      return;
+    }
+
+    try {
+      const { guardarSuscriptor } = await import('./firebase.js');
+      await guardarSuscriptor(email);
+      msg.textContent = '¡Gracias por suscribirte!';
+      msg.style.color = '#4caf50';
+      form.reset();
+      setTimeout(() => { msg.textContent = ''; }, 3500);
+    } catch (e2) {
+      console.error('Error guardando suscriptor:', e2);
+      msg.textContent = 'Error al guardar la suscripción.';
+      msg.style.color = '#d33';
+    }
+  });
+
+  // (Opcional) abrir PDF al hacer doble click en el thumbnail activo
+  track.addEventListener('dblclick', () => {
+    if (!data[current]?.url) return;
+    window.open(data[current].url, '_blank', 'noopener');
+  });
+});
