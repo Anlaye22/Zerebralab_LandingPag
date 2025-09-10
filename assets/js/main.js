@@ -1,23 +1,24 @@
-import "../css/main.css";
-
 "use strict";
 
 // Page loading
 const pageLoading = document.querySelector(".page-loading");
+
 // Helpers
 const norm = (s) =>
-  (s || '')
+  (s || "")
     .toString()
     .toLowerCase()
-    .normalize('NFD')               // separa acentos
-    .replace(/\p{Diacritic}/gu, ''); // quita acentos
+    .normalize("NFD") // separa acentos
+    .replace(/\p{Diacritic}/gu, ""); // quita acentos
 
 // Botones (usa data-filter en los <button>)
-const buttons = document.querySelectorAll('.portfolio-menu [data-filter]');
+const buttons = document.querySelectorAll(".portfolio-menu [data-filter]");
 
 // Los nodos con data-filter están en el <article>, pero el que se oculta
 // es el DIV padre con clase "portfolio col-12 ..."
-const nodesWithFilter = document.querySelectorAll('.portfolio-grid .portfolio [data-filter]');
+const nodesWithFilter = document.querySelectorAll(
+  ".portfolio-grid .portfolio [data-filter]"
+);
 
 if (pageLoading) {
   window.addEventListener("load", () => {
@@ -59,101 +60,84 @@ window.addEventListener("scroll", function () {
 const webTheme = document.querySelector("[data-web-trigger=web-theme]");
 const html = document.querySelector("html");
 
-window.addEventListener("load", function () {
-  let theme = localStorage.getItem("Inazuma_WebTheme");
+if (webTheme) {
+  window.addEventListener("load", function () {
+    let theme = localStorage.getItem("Inazuma_WebTheme");
 
-  if (theme === "light") {
-    webTheme.innerHTML = '<i class="lni lni-sun"></i>';
-  } else if (theme === "dark") {
-    webTheme.innerHTML = '<i class="lni lni-night"></i>';
-  } else {
-    theme = "light";
-    localStorage.setItem("Inazuma_WebTheme", theme);
-    webTheme.innerHTML = '<i class="lni lni-night"></i>';
-  }
-
-  html.dataset.webTheme = theme;
-});
-
-webTheme.addEventListener("click", function () {
-  let theme = localStorage.getItem("Inazuma_WebTheme");
-
-  webTheme.innerHTML =
-    theme === "dark"
-      ? '<i class="lni lni-sun"></i>'
-      : '<i class="lni lni-night"></i>';
-  theme = theme === "dark" ? "light" : "dark";
-  localStorage.setItem("Inazuma_WebTheme", theme);
-  html.dataset.webTheme = theme;
-});
-
-// Scrollspy
-function scrollspy() {
-  const links = document.querySelectorAll(".ic-page-scroll");
-  const scrollpos = window.pageYOffset || document.documentElement.scrollTop;
-
-  for (const currentLink of links) {
-    const dataTarget = currentLink.getAttribute("href");
-    const targetElement = document.querySelector(dataTarget);
-    const topminus = scrollpos + 74;
-
-    if (targetElement) {
-      if (
-        targetElement.offsetTop <= topminus &&
-        targetElement.offsetTop + targetElement.offsetHeight > topminus
-      ) {
-        document.querySelector(".ic-page-scroll.active")?.classList.remove("active");
-        currentLink.classList.add("active");
-      } else {
-        currentLink.classList.remove("active");
-      }
+    if (theme === "light") {
+      webTheme.innerHTML = '<i class="lni lni-sun"></i>';
+    } else if (theme === "dark") {
+      webTheme.innerHTML = '<i class="lni lni-night"></i>';
+    } else {
+      theme = "light";
+      localStorage.setItem("Inazuma_WebTheme", theme);
+      webTheme.innerHTML = '<i class="lni lni-night"></i>';
     }
-  }
+
+    html.dataset.webTheme = theme;
+  });
+
+  webTheme.addEventListener("click", function () {
+    let theme = localStorage.getItem("Inazuma_WebTheme");
+
+    webTheme.innerHTML =
+      theme === "dark"
+        ? '<i class="lni lni-sun"></i>'
+        : '<i class="lni lni-night"></i>';
+    theme = theme === "dark" ? "light" : "dark";
+    localStorage.setItem("Inazuma_WebTheme", theme);
+    html.dataset.webTheme = theme;
+  });
 }
 
-document.addEventListener("scroll", scrollspy);
-
-// Smooth scroll
-document.querySelectorAll(".ic-page-scroll").forEach(link => {
+// Smooth scroll (con offset del header)
+document.querySelectorAll(".ic-page-scroll").forEach((link) => {
   link.addEventListener("click", function (e) {
     e.preventDefault();
     const targetElement = document.querySelector(link.getAttribute("href"));
     if (targetElement) {
-      targetElement.scrollIntoView({ behavior: "smooth", offsetTop: 1 - 74 });
+      const headerOffset = 74; // ajusta si cambia la altura del header
+      const y =
+        targetElement.getBoundingClientRect().top +
+        window.pageYOffset -
+        headerOffset;
+      window.scrollTo({ top: y, behavior: "smooth" });
     }
     navbar.classList.remove("menu-show");
     navbarToggler.innerHTML = '<i class="lni lni-menu"></i>';
   });
 });
 
-// Tabs
-document.querySelectorAll(".tabs").forEach(tab => {
+// Tabs genéricas (no se toca estructura; queda inactivo si no hay .tabs-link/.tabs-content)
+document.querySelectorAll(".tabs").forEach((tab) => {
   const links = tab.querySelectorAll(".tabs-nav .tabs-link"),
     contents = tab.querySelectorAll(".tabs-content");
 
   if (!contents.length) return;
 
   window.addEventListener("load", () => {
-    contents.forEach(c => c.classList.add("hide"));
-    links.forEach(l => {
+    contents.forEach((c) => c.classList.add("hide"));
+    links.forEach((l) => {
       l.classList.remove("active");
       l.ariaSelected = false;
     });
 
     links[0].classList.add("active");
     links[0].ariaSelected = true;
-    document.getElementById(links[0].dataset.webTarget)?.classList.remove("hide");
+    document.getElementById(links[0].dataset.webTarget)?.classList.remove(
+      "hide"
+    );
   });
 
-  links.forEach(link => {
+  links.forEach((link) => {
     const targetElement = document.getElementById(link.dataset.webTarget);
     if (!targetElement) {
       link.disabled = true;
       return;
     }
     link.addEventListener("click", () => {
-      contents.forEach(c => c.classList.add("hide"));
-      links.forEach(l => {
+      contents.forEach((c) => c.classList.add("hide"));
+      links.forEach((l) => {
         l.classList.remove("active");
         l.ariaSelected = false;
       });
@@ -165,21 +149,23 @@ document.querySelectorAll(".tabs").forEach(tab => {
 });
 
 // Portfolio filter
-buttons.forEach(btn => {
-  btn.addEventListener('click', () => {
+buttons.forEach((btn) => {
+  btn.addEventListener("click", () => {
     // normaliza valor del botón
     const f = norm(btn.dataset.filter); // e.g. 'all', 'negocios', 'comunicacion', ...
 
     // acepta All/Todo/vacío como "mostrar todo"
-    const showAll = (f === 'all' || f === 'todo' || f === '');
+    const showAll = f === "all" || f === "todo" || f === "";
 
     // marca botón activo
-    document.querySelector('.portfolio-menu .active')?.classList.remove('active');
-    btn.classList.add('active');
+    document
+      .querySelector(".portfolio-menu .active")
+      ?.classList.remove("active");
+    btn.classList.add("active");
 
-    nodesWithFilter.forEach(el => {
-      const gridItem = el.closest('.portfolio'); // el contenedor que se muestra/oculta
-      const cat = norm(el.dataset.filter);       // categoría del artículo
+    nodesWithFilter.forEach((el) => {
+      const gridItem = el.closest(".portfolio"); // el contenedor que se muestra/oculta
+      const cat = norm(el.dataset.filter); // categoría del artículo
 
       // si quieres permitir múltiples categorías separadas por espacios:
       const catList = cat.split(/\s+/);
@@ -187,19 +173,19 @@ buttons.forEach(btn => {
       const match = showAll || catList.includes(f);
 
       // Usa tus clases .show/.hide (o cambia a Tailwind block/hidden si prefieres)
-      gridItem.classList.toggle('hide', !match);
-      gridItem.classList.toggle('show',  match);
-      gridItem.style.removeProperty('display');  // por si quedó un inline display:none
+      gridItem.classList.toggle("hide", !match);
+      gridItem.classList.toggle("show", match);
+      gridItem.style.removeProperty("display"); // por si quedó un inline display:none
     });
   });
 });
 
 // Estado inicial: todo visible
-nodesWithFilter.forEach(el => {
-  const gridItem = el.closest('.portfolio');
-  gridItem.classList.remove('hide');
-  gridItem.classList.add('show');
-  gridItem.style.removeProperty('display');
+nodesWithFilter.forEach((el) => {
+  const gridItem = el.closest(".portfolio");
+  gridItem.classList.remove("hide");
+  gridItem.classList.add("show");
+  gridItem.style.removeProperty("display");
 });
 
 // Scroll to top
@@ -208,7 +194,9 @@ if (scrollTopBtn) {
   window.onscroll = function () {
     scrollTopBtn.classList.toggle(
       "is-hided",
-      !(document.body.scrollTop > 50 || document.documentElement.scrollTop > 50)
+      !(
+        document.body.scrollTop > 50 || document.documentElement.scrollTop > 50
+      )
     );
   };
 
@@ -218,134 +206,98 @@ if (scrollTopBtn) {
 }
 
 // Animación inicial a tarjetas
-document.querySelectorAll('.flip-card-odd, .flip-card-even').forEach(card => {
-  card.classList.add('scroll-revealed');
-});
-
-// 🔽 Cargar newsletters (lazy load)
-document.addEventListener("DOMContentLoaded", async () => {
-  const contenedor = document.getElementById("newsletter-list");
-  if (!contenedor) return;
-
-  const observer = new IntersectionObserver(async (entries, obs) => {
-    if (entries[0].isIntersecting) {
-      obs.disconnect();
-      contenedor.innerHTML = `<p class="text-sm text-gray-500 animate-pulse">Cargando boletines…</p>`;
-
-      try {
-        const { obtenerNewsletters } = await import("./firebase.js");
-        const boletines = await obtenerNewsletters();
-
-        contenedor.innerHTML = "";
-
-      boletines
-        .sort((a, b) => new Date(b.fecha) - new Date(a.fecha)) // orden descendente por fecha
-        .forEach(b => {
-          const div = document.createElement("div");
-          div.className = "bg-white p-4 shadow rounded text-left";
-
-          div.innerHTML = `
-            <h3 class="text-lg font-semibold">${b.titulo}</h3>
-            <p class="text-sm text-gray-600 mb-2">Publicado: ${b.fecha}</p>
-            <p class="text-sm text-gray-800 mb-2">${b.extracto ?? "Resumen no disponible."}</p>
-            <a href="${b.link}" target="_blank" class="text-blue-600 hover:underline">Ver boletín completo</a>
-          `;
-
-          contenedor.appendChild(div);
-        });
-
-      } catch (err) {
-        contenedor.innerHTML = `<p class="text-red-600">Error al cargar boletines.</p>`;
-        console.error("Error al obtener newsletters:", err);
-      }
-    }
+document
+  .querySelectorAll(".flip-card-odd, .flip-card-even")
+  .forEach((card) => {
+    card.classList.add("scroll-revealed");
   });
 
-  observer.observe(contenedor);
-});
+// IntersectionObserver para marcar menú activo por sección
+document.addEventListener("DOMContentLoaded", () => {
+  const links = Array.from(
+    document.querySelectorAll(".ic-navbar .ic-page-scroll")
+  );
 
+  // Obtiene las secciones a partir de los hrefs (#id)
+  const sections = links
+    .map((a) => a.getAttribute("href"))
+    .filter((href) => href && href.startsWith("#") && href.length > 1)
+    .map((href) => document.querySelector(href))
+    .filter(Boolean);
 
-/* ===== Newsletter logic ===== */
-
-// Data de ejemplo (reemplaza con lo que traigas de Firestore si quieres)
-const NL_DATA = [
-  { title: 'Boletín • Agosto 2025',  thumb: './assets/img/head.jpg',           url: '#' },
-  { title: 'Boletín • Julio 2025',   thumb: './assets/img/Icono-Proposito.png', url: '#' },
-  { title: 'Boletín • Junio 2025',   thumb: './assets/img/Icono-QBuscamos.png', url: '#' },
-  { title: 'Boletín • Mayo 2025',    thumb: './assets/img/head.jpg',           url: '#' },
-  { title: 'Boletín • Abril 2025',   thumb: './assets/img/Icono-Proposito.png', url: '#' },
-];
-
-(function initNewsletter(){
-  const track   = document.getElementById('nl-track');
-  const prevBtn = document.getElementById('nl-prev');
-  const nextBtn = document.getElementById('nl-next');
-  const caption = document.getElementById('nl-caption');
-
-  if (!track || !prevBtn || !nextBtn) return;
-
-  let current = 0;
-
-  // Render miniaturas
-  NL_DATA.forEach((n, i) => {
-    const b = document.createElement('button');
-    b.className = 'nl-thumb';
-    b.type = 'button';
-    b.dataset.index = i;
-
-    const img = document.createElement('img');
-    img.src = n.thumb;
-    img.alt = n.title;
-    b.appendChild(img);
-
-    b.addEventListener('click', () => select(i));
-    track.appendChild(b);
-  });
-
-  function select(i){
-    current = Math.max(0, Math.min(i, NL_DATA.length - 1));
-    caption.textContent = NL_DATA[current].title;
-
-    // Marcar activo
-    [...track.children].forEach((el, idx) => {
-      el.classList.toggle('is-active', idx === current);
+  // Marca el link activo
+  const setActive = (id) => {
+    links.forEach((a) => {
+      const isActive = a.getAttribute("href") === `#${id}`;
+      a.classList.toggle("active", isActive);
+      if (isActive) a.setAttribute("aria-current", "page");
+      else a.removeAttribute("aria-current");
     });
+  };
 
-    // Centrar seleccionado (scroll suave)
-    track.children[current]?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  // Observa cuándo cada sección entra al viewport
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    },
+    {
+      threshold: 0.5, // ~50% visible
+      rootMargin: "-10% 0px -40% 0px", // ajusta el momento del cambio
+    }
+  );
+
+  sections.forEach((sec) => io.observe(sec));
+
+  // Estado correcto si la página carga con hash
+  if (location.hash) setActive(location.hash.slice(1));
+});
+
+// ===== Vendors init (CDN globales vía window.*) =====
+document.addEventListener("DOMContentLoaded", () => {
+  // ScrollReveal
+  if (window.ScrollReveal) {
+    const sr = window.ScrollReveal({
+      origin: "bottom",
+      distance: "16px",
+      duration: 1000,
+      reset: false,
+    });
+    sr.reveal(".scroll-revealed", { cleanup: true });
   }
 
-  prevBtn.addEventListener('click', () => select(current - 1));
-  nextBtn.addEventListener('click', () => select(current + 1));
+  // GLightbox
+  if (window.GLightbox) {
+    window.GLightbox({
+      selector: ".video-popup",
+      href: "https://www.youtube.com/watch?v=r44RKWyfcFw",
+      type: "video",
+      source: "youtube",
+      width: 900,
+      autoplayVideos: true,
+    });
+    window.GLightbox({
+      selector: ".portfolio-box",
+      type: "image",
+      width: 900,
+    });
+  }
 
-  // Estado inicial
-  select(2); // el del centro como en tu captura
-
-  // Form
-  const form = document.getElementById('nl-form');
-  const input = document.getElementById('nl-email');
-  const msg = document.getElementById('nl-msg');
-
-  const onlyGmail = (s) => /^[a-z0-9._%+-]+@gmail\.com$/i.test((s||'').trim());
-
-  form?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = input.value.trim();
-
-    if (!onlyGmail(email)) {
-      msg.textContent = 'Solo se permiten correos Gmail válidos.';
-      msg.style.color = '#d33';
-      return;
-    }
-
-    // Aquí podrías llamar a Firebase: guardarSuscriptor(email)
-    // await guardarSuscriptor(email);
-
-    msg.textContent = '¡Gracias por suscribirte!';
-    msg.style.color = '#4caf50';
-    form.reset();
-
-    // limpiar mensaje
-    setTimeout(() => { msg.textContent = ''; }, 3500);
-  });
-})();
+  // Swiper
+  if (window.Swiper) {
+    new window.Swiper(".testimonial-carousel", {
+      slidesPerView: 1,
+      spaceBetween: 30,
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      breakpoints: {
+        640: { slidesPerView: 2, spaceBetween: 30 },
+        1024: { slidesPerView: 3, spaceBetween: 30 },
+        1280: { slidesPerView: 3, spaceBetween: 30 },
+      },
+    });
+  }
+});

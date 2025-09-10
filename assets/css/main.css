@@ -3246,8 +3246,53 @@ main::after {
 }
 
 
-/* Asegura que el contenido quede por encima del ::after */
 main > * {
   position: relative;
   z-index: 1;
 }
+
+
+/* === Estado normal (arriba, sin sticky) === */
+.ic-navbar .ic-page-scroll{
+  color: #887672!important;                
+  font-family: 'Galyon', sans-serif;        
+  font-weight: 700;
+  letter-spacing: .02em;
+  text-transform: u;                     
+}
+
+.ic-navbar .ic-page-scroll:hover{
+  color: #ff6e00 !important;                 
+}
+
+.ic-navbar .ic-page-scroll.active{
+  color: #ff6e00 !important;                 
+}
+
+/* === Estado sticky (al hacer scroll) === */
+.ic-navbar.sticky .ic-page-scroll{
+  color: #5b5c63 !important;                
+  font-family: 'Galyon', sans-serif;         
+}
+
+/* Estado normal de los links */
+.ic-navbar .ic-page-scroll{ color:#5b5c63; }
+
+/* Hover (opcional) */
+.ic-navbar .ic-page-scroll:hover{ color:#ff6e00; }
+
+/* Activo (cuando su sección está en viewport) */
+.ic-navbar .ic-page-scroll.active{
+  color:#ff6e00 !important;
+  position: relative;
+}
+.ic-navbar .ic-page-scroll.active::after{
+  content:"";
+  position:absolute; left:0; right:0; bottom:-6px;
+  height:3px; border-radius:999px; background:#ff6e00;
+}
+
+/* Si quieres un color distinto cuando el header está sticky: */
+.ic-navbar.sticky .ic-page-scroll.active{ color:#ff6e00 !important; }
+
+section[id]{ scroll-margin-top: 90px; } 
