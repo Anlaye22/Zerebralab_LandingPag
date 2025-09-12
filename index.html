@@ -705,9 +705,17 @@
     <div class="nl-card">
       <h2 class="nl-title">SUSCRÍBETE A NUESTRO NEWSLETTER</h2>
 
-      <!-- Form -->
-      <form id="nl-form" class="nl-form" autocomplete="off">
-        <input id="nl-email" type="email" placeholder="Tu correo aquí @gmail.com" required />
+      <form id="nl-form" class="nl-form" autocomplete="off" novalidate>
+        <input
+          id="nl-email"
+          type="email"
+          inputmode="email"
+          autocomplete="email"
+          required
+          placeholder="Tu correo aquí @ejemplo.com"
+          aria-describedby="nl-msg"
+          pattern="^[A-Za-z0-9](?:[A-Za-z0-9._%+-]{0,63})@[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?)*\.com$"
+        />
         <button class="nl-btn" type="submit">Suscribirme</button>
       </form>
       <p id="nl-msg" class="nl-msg" aria-live="polite"></p>

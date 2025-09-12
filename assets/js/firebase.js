@@ -1,8 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import {
-  getFirestore,
-  doc, setDoc,
-  getDocs, collection
+  getFirestore, doc, setDoc, getDocs, collection, serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -17,16 +15,20 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db  = getFirestore(app);
 
-// Guarda suscriptor (documento con id = correo en minúsculas)
+// ⬇️ Debe mandar exactamente estos campos: correo, createdAt, lastSeenAt
 export async function guardarSuscriptor(correo) {
-  const id = (correo || "").toLowerCase();
-  await setDoc(doc(db, "suscriptores", id), {
-    correo: correo,
-    fecha: new Date()
-  });
+  const id = (correo || "").trim().toLowerCase();
+  await setDoc(
+    doc(db, "suscriptores", id),
+    {
+      correo: id,
+      createdAt: serverTimestamp(),
+      lastSeenAt: serverTimestamp(),
+    },
+    { merge: true } // si existe, solo actualiza lastSeenAt
+  );
 }
 
-// Lee boletines de la colección "newsletters"
 export async function obtenerNewsletters() {
   const snap = await getDocs(collection(db, "newsletters"));
   return snap.docs.map(d => ({ id: d.id, ...d.data() }));

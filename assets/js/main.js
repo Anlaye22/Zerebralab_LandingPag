@@ -10,14 +10,11 @@ const norm = (s) =>
   (s || "")
     .toString()
     .toLowerCase()
-    .normalize("NFD") // separa acentos
-    .replace(/\p{Diacritic}/gu, ""); // quita acentos
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "");
 
-// Botones (usa data-filter en los <button>)
+// Botones
 const buttons = document.querySelectorAll(".portfolio-menu [data-filter]");
-
-// Los nodos con data-filter están en el <article>, pero el que se oculta
-// es el DIV padre con clase "portfolio col-12 ..."
 const nodesWithFilter = document.querySelectorAll(
   ".portfolio-grid .portfolio [data-filter]"
 );
@@ -92,13 +89,13 @@ if (webTheme) {
   });
 }
 
-// Smooth scroll (con offset del header)
+// Smooth scroll
 document.querySelectorAll(".ic-page-scroll").forEach((link) => {
   link.addEventListener("click", function (e) {
     e.preventDefault();
     const targetElement = document.querySelector(link.getAttribute("href"));
     if (targetElement) {
-      const headerOffset = 74; // ajusta si cambia la altura del header
+      const headerOffset = 74;
       const y =
         targetElement.getBoundingClientRect().top +
         window.pageYOffset -
@@ -110,7 +107,7 @@ document.querySelectorAll(".ic-page-scroll").forEach((link) => {
   });
 });
 
-// Tabs genéricas (no se toca estructura; queda inactivo si no hay .tabs-link/.tabs-content)
+// Tabs
 document.querySelectorAll(".tabs").forEach((tab) => {
   const links = tab.querySelectorAll(".tabs-nav .tabs-link"),
     contents = tab.querySelectorAll(".tabs-content");
@@ -153,36 +150,28 @@ document.querySelectorAll(".tabs").forEach((tab) => {
 // Portfolio filter
 buttons.forEach((btn) => {
   btn.addEventListener("click", () => {
-    // normaliza valor del botón
-    const f = norm(btn.dataset.filter); // e.g. 'all', 'negocios', 'comunicacion', ...
-
-    // acepta All/Todo/vacío como "mostrar todo"
+    const f = norm(btn.dataset.filter);
     const showAll = f === "all" || f === "todo" || f === "";
 
-    // marca botón activo
     document
       .querySelector(".portfolio-menu .active")
       ?.classList.remove("active");
     btn.classList.add("active");
 
     nodesWithFilter.forEach((el) => {
-      const gridItem = el.closest(".portfolio"); // el contenedor que se muestra/oculta
-      const cat = norm(el.dataset.filter); // categoría del artículo
-
-      // si quieres permitir múltiples categorías separadas por espacios:
+      const gridItem = el.closest(".portfolio");
+      const cat = norm(el.dataset.filter);
       const catList = cat.split(/\s+/);
-
       const match = showAll || catList.includes(f);
 
-      // Usa tus clases .show/.hide (o cambia a Tailwind block/hidden si prefieres)
       gridItem.classList.toggle("hide", !match);
       gridItem.classList.toggle("show", match);
-      gridItem.style.removeProperty("display"); // por si quedó un inline display:none
+      gridItem.style.removeProperty("display");
     });
   });
 });
 
-// Estado inicial: todo visible
+// Estado inicial
 nodesWithFilter.forEach((el) => {
   const gridItem = el.closest(".portfolio");
   gridItem.classList.remove("hide");
@@ -207,27 +196,25 @@ if (scrollTopBtn) {
   });
 }
 
-// Animación inicial a tarjetas
+// Animación inicial
 document
   .querySelectorAll(".flip-card-odd, .flip-card-even")
   .forEach((card) => {
     card.classList.add("scroll-revealed");
   });
 
-// IntersectionObserver para marcar menú activo por sección
+// IntersectionObserver menú activo
 document.addEventListener("DOMContentLoaded", () => {
   const links = Array.from(
     document.querySelectorAll(".ic-navbar .ic-page-scroll")
   );
 
-  // Obtiene las secciones a partir de los hrefs (#id)
   const sections = links
     .map((a) => a.getAttribute("href"))
     .filter((href) => href && href.startsWith("#") && href.length > 1)
     .map((href) => document.querySelector(href))
     .filter(Boolean);
 
-  // Marca el link activo
   const setActive = (id) => {
     links.forEach((a) => {
       const isActive = a.getAttribute("href") === `#${id}`;
@@ -237,7 +224,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  // Observa cuándo cada sección entra al viewport
   const io = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -245,20 +231,18 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     },
     {
-      threshold: 0.5, // ~50% visible
-      rootMargin: "-10% 0px -40% 0px", // ajusta el momento del cambio
+      threshold: 0.5,
+      rootMargin: "-10% 0px -40% 0px",
     }
   );
 
   sections.forEach((sec) => io.observe(sec));
 
-  // Estado correcto si la página carga con hash
   if (location.hash) setActive(location.hash.slice(1));
 });
 
-// ===== Vendors init (CDN globales vía window.*) =====
+// Vendors init
 document.addEventListener("DOMContentLoaded", () => {
-  // ScrollReveal
   if (window.ScrollReveal) {
     const sr = window.ScrollReveal({
       origin: "bottom",
@@ -269,7 +253,6 @@ document.addEventListener("DOMContentLoaded", () => {
     sr.reveal(".scroll-revealed", { cleanup: true });
   }
 
-  // GLightbox
   if (window.GLightbox) {
     window.GLightbox({
       selector: ".video-popup",
@@ -286,7 +269,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Swiper
   if (window.Swiper) {
     new window.Swiper(".testimonial-carousel", {
       slidesPerView: 1,
@@ -304,33 +286,43 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-
-/* ===== Newsletter logic ===== */
-
-(function initNewsletterFirebase(){
+/* ===========================
+   Newsletter (Firestore)
+   =========================== */
+document.addEventListener('DOMContentLoaded', async () => {
   const track   = document.getElementById('nl-track');
   const prevBtn = document.getElementById('nl-prev');
   const nextBtn = document.getElementById('nl-next');
   const caption = document.getElementById('nl-caption');
 
-  const form = document.getElementById('nl-form');
-  const input = document.getElementById('nl-email');
-  const msg   = document.getElementById('nl-msg');
+  const form    = document.getElementById('nl-form');
+  const input   = document.getElementById('nl-email');
+  const msg     = document.getElementById('nl-msg');
 
-  if (!track || !prevBtn || !nextBtn || !caption) return; // si no existe la sección, salimos.
+  const EMAIL_RE = /^[A-Za-z0-9](?:[A-Za-z0-9._%+-]{0,63})@[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?(?:\.[A-Za-z]{2,})+$/i;
+  const isValidEmail = (s) => EMAIL_RE.test((s || '').trim());
 
-  let items = [];
-  let current = 0;
+  // 1) Obtener boletines
+  let data = [];
+  try {
+    data = await obtenerNewsletters();
+    data = data.map(n => ({
+      title: n.title || n.titulo || 'Boletín',
+      thumb: n.thumb || n.miniatura || '',
+      url:   n.url   || '',
+      fecha: (n.fecha && (n.fecha.toDate ? n.fecha.toDate() : new Date(n.fecha))) || new Date(0)
+    })).sort((a,b) => b.fecha - a.fecha);
+  } catch (err) {
+    console.error('Error cargando newsletters:', err);
+  }
 
-  const onlyGmail = (s) => /^[a-z0-9._%+-]+@gmail\.com$/i.test((s||'').trim());
-
-  // Renderiza miniaturas
-  function renderThumbnails() {
-    track.innerHTML = "";
-    items.forEach((n, i) => {
+  // 2) Render carrusel
+  if (track) {
+    track.innerHTML = '';
+    data.forEach((n, i) => {
       const b = document.createElement('button');
-      b.className = 'nl-thumb';
       b.type = 'button';
+      b.className = 'nl-thumb';
       b.dataset.index = i;
 
       const img = document.createElement('img');
@@ -338,173 +330,61 @@ document.addEventListener("DOMContentLoaded", () => {
       img.alt = n.title;
       b.appendChild(img);
 
-      // click: seleccionar y si se hace doble click, abrir PDF
       b.addEventListener('click', () => select(i));
-      b.addEventListener('dblclick', () => {
-        if (items[i]?.url && items[i].url !== '#') window.open(items[i].url, '_blank');
-      });
+      b.addEventListener('dblclick', () => { if (data[i]?.url) window.open(data[i].url, '_blank', 'noopener'); });
 
       track.appendChild(b);
     });
   }
 
+  let current = 0;
   function select(i){
-    if (!items.length) return;
-    current = Math.max(0, Math.min(i, items.length - 1));
-    caption.textContent = items[current].title || 'Newsletter';
-
-    // estado activo visual
-    [...track.children].forEach((el, idx) => {
-      el.classList.toggle('is-active', idx === current);
-    });
-
-    // centrar seleccionado
-    track.children[current]?.scrollIntoView({
-      behavior: 'smooth',
-      inline: 'center',
-      block: 'nearest'
-    });
+    if (!data.length) return;
+    current = Math.max(0, Math.min(i, data.length - 1));
+    if (caption) caption.textContent = data[current].title || '';
+    [...(track?.children || [])].forEach((el, idx) => el.classList.toggle('is-active', idx === current));
+    track?.children[current]?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
   }
+  prevBtn?.addEventListener('click', () => select(current - 1));
+  nextBtn?.addEventListener('click', () => select(current + 1));
+  select(0);
 
-  prevBtn.addEventListener('click', () => select(current - 1));
-  nextBtn.addEventListener('click', () => select(current + 1));
-
-  // Formulario: guardar suscriptor en Firestore
+  // 3) Suscripción
   form?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = (input?.value || "").trim();
+  e.preventDefault();
+  const email = (input?.value || '').trim();
 
-    if (!onlyGmail(email)) {
-      if (msg) { msg.textContent = 'Solo se permiten correos Gmail válidos.'; msg.style.color = '#d33'; }
-      return;
+  const html5Ok = input ? input.checkValidity() : true;
+  if (!html5Ok || !isValidEmail(email)) {
+    if (msg) {
+      msg.textContent = 'Ingresa un correo válido (ej. usuario@dominio.tld)';
+      msg.style.color = '#d33';
     }
-    try {
-      await guardarSuscriptor(email);
-      if (msg) { msg.textContent = '¡Gracias por suscribirte!'; msg.style.color = '#4caf50'; }
-      form.reset();
-      setTimeout(() => { if (msg) msg.textContent = ''; }, 3500);
-    } catch (err) {
-      console.error(err);
-      if (msg) { msg.textContent = 'Ocurrió un error. Intenta más tarde.'; msg.style.color = '#d33'; }
-    }
-  });
-
-  // Carga desde Firestore
-  (async () => {
-    try {
-      items = await obtenerNewsletters();
-      // Fallback si no hay data aún
-      if (!items.length) {
-        items = [
-          { title: 'Próximamente…', thumb: '/assets/img/newsletters/thumb-placeholder.jpg', url: '#', fecha: null }
-        ];
-      }
-      renderThumbnails();
-      select(0); // empieza en el primero más reciente
-    } catch (err) {
-      console.error('Error obteniendo newsletters:', err);
-      // fallback visual mínimo
-      caption.textContent = 'No fue posible cargar los boletines.';
-    }
-  })();
-})();
-
-
-// ====== Newsletter (Firestore) ======
-document.addEventListener('DOMContentLoaded', async () => {
-  const track   = document.getElementById('nl-track');
-  const prevBtn = document.getElementById('nl-prev');
-  const nextBtn = document.getElementById('nl-next');
-  const caption = document.getElementById('nl-caption');
-  const form    = document.getElementById('nl-form');
-  const input   = document.getElementById('nl-email');
-  const msg     = document.getElementById('nl-msg');
-
-  if (!track || !prevBtn || !nextBtn) return;
-
-  // 1) Traer boletines de Firestore
-  let data = [];
-  try {
-    const { obtenerNewsletters, guardarSuscriptor } = await import('./firebase.js');
-
-    data = await obtenerNewsletters();
-
-    // Normaliza y ordena por fecha (campo timestamp)
-    data = data.map(n => ({
-      title: n.title || n.titulo || 'Boletín',
-      thumb: n.thumb || n.miniatura || '',
-      url:   n.url   || '',
-      fecha: (n.fecha && (n.fecha.toDate ? n.fecha.toDate() : new Date(n.fecha))) || new Date(0)
-    }))
-    .sort((a,b) => b.fecha - a.fecha);
-
-    if (!data.length) {
-      caption.textContent = 'Aún no hay boletines.';
-    }
-  } catch (err) {
-    console.error('Error cargando newsletters:', err);
-    caption.textContent = 'No fue posible cargar los boletines.';
+    input?.focus();
     return;
   }
 
-  // 2) Render thumbs
-  track.innerHTML = '';
-  data.forEach((n, i) => {
-    const b = document.createElement('button');
-    b.className = 'nl-thumb';
-    b.type = 'button';
-    b.dataset.index = i;
+  try {
+    await guardarSuscriptor(email);
 
-    const img = document.createElement('img');
-    img.src = n.thumb;
-    img.alt = n.title;
-    b.appendChild(img);
-
-    b.addEventListener('click', () => select(i));
-    track.appendChild(b);
-  });
-
-  let current = 0;
-  function select(i){
-    current = Math.max(0, Math.min(i, data.length - 1));
-    caption.textContent = data[current].title || '';
-    [...track.children].forEach((el, idx) => el.classList.toggle('is-active', idx === current));
-    track.children[current]?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-  }
-  prevBtn.addEventListener('click', () => select(current - 1));
-  nextBtn.addEventListener('click', () => select(current + 1));
-  select(0); // primer boletín por defecto
-
-  // 3) Suscripción (solo @gmail.com)
-  const onlyGmail = (s) => /^[a-z0-9._%+-]+@gmail\.com$/i.test((s||'').trim());
-
-  form?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = (input.value || '').trim();
-
-    if (!onlyGmail(email)) {
-      msg.textContent = 'Solo se permiten correos Gmail válidos.';
-      msg.style.color = '#d33';
-      return;
-    }
-
-    try {
-      const { guardarSuscriptor } = await import('./firebase.js');
-      await guardarSuscriptor(email);
+    if (msg) {
       msg.textContent = '¡Gracias por suscribirte!';
       msg.style.color = '#4caf50';
-      form.reset();
-      setTimeout(() => { msg.textContent = ''; }, 3500);
-    } catch (e2) {
-      console.error('Error guardando suscriptor:', e2);
-      msg.textContent = 'Error al guardar la suscripción.';
+      msg.style.fontWeight = 'bold';
+      msg.style.fontFamily = "'MillionDesign', sans-serif";
+    }
+
+    form.reset();
+    setTimeout(() => { if (msg) msg.textContent = ''; }, 3500);
+
+  } catch (e) {
+    console.error('Firestore error:', e.code, e.message);
+
+    // 🟥 Mostrar el error real en pantalla
+    if (msg) {
+      msg.textContent = `Error [${e.code || 'desconocido'}]: ${e.message || 'No se pudo guardar la suscripción'}`;
       msg.style.color = '#d33';
     }
-  });
-
-  // (Opcional) abrir PDF al hacer doble click en el thumbnail activo
-  track.addEventListener('dblclick', () => {
-    if (!data[current]?.url) return;
-    window.open(data[current].url, '_blank', 'noopener');
-  });
+  }
+});
 });
